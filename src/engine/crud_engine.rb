@@ -12,6 +12,7 @@ class Crud
 
     def save(movie)
         # Add to the temp local array.
+        load_data()
         add_movie(movie)
         save_data()
     end
@@ -55,19 +56,23 @@ class Crud
     end
 
     def delete(movie)
-        puts "The movie to delete is #{movie}"
-
         @movies.delete_if { |movieObj| movieObj[:title] == movie }
 
         # Save the data
         save_data()
-
-        # puts "Global Movies: "
-        # puts @movies
     end
 
     def update(title, tag, newData)
+        newMovieObj = search_movie(title)
+    
+        # Delete the old movie with old data
+        delete(title)
 
+        # Overwrite the old data
+        newMovieObj[tag.to_sym] = newData
+
+        # Save -  it will hard save in this method
+        save(newMovieObj)
     end
 
 end

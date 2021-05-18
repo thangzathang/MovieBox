@@ -60,10 +60,10 @@ class DataManager
         puts @arrti.asciify("Update a Movie")
 
         puts "Enter the movie title you want to update:"
-        title = gets.strip
+        @title = gets.strip
 
         # Check if they wanna exit
-        if title.chomp.downcase == "exit"
+        if @title.chomp.downcase == "exit"
             puts "You have exited!"
             return
         end
@@ -72,7 +72,7 @@ class DataManager
         # If it exists confirm with them - use gems.
         # If the above has passed. Let's delete!
         # @crud.update(title, tag, newData)
-        movie = @crud.search_movie(title)
+        movie = @crud.search_movie(@title)
         if movie == "Not Found"
             puts "Movie Not Found"
             sleep(1.5)
@@ -91,9 +91,22 @@ class DataManager
             menu.choice 'Review', 3
         end
 
+        # We have the title, and the attribute we want to change
+        # Now we ask the user for new data to replace the old data.
+
         case updateTag
         when 1
-            puts "You would like to update the title"
+            puts "What is the new title?"
+            newTitle = gets.chomp
+           
+            @crud.update(@title, "title", newTitle)
+
+            puts "Updates Applied"
+            sleep(0.5)
+            #Now we should be able to find with the new title
+            getUpdatedMovie = @crud.search_movie(newTitle)
+            puts "#{getUpdatedMovie[:title]} has been updated"
+            sleep(3)
         when 2
             puts "You would like to update starring"
         when 3 
