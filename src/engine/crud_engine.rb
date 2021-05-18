@@ -45,6 +45,15 @@ class Crud
         return @movies
     end
 
+    def search_movie(movie)
+        found = @movies.find { |movieObj| movieObj[:title] == movie }
+        if found
+            return found
+        else 
+            return "Not Found" 
+        end
+    end
+
     def delete(movie)
         puts "The movie to delete is #{movie}"
 
@@ -53,8 +62,12 @@ class Crud
         # Save the data
         save_data()
 
-        puts "\Global Movies: "
-        puts @movies
+        # puts "Global Movies: "
+        # puts @movies
+    end
+
+    def update(title, tag, newData)
 
     end
+
 end

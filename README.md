@@ -32,7 +32,7 @@
 
 <!-- 7. Manuel Testing Procedure -->
 
-Manuel Testing Screen Shots
+<!-- Manuel Testing Screen Shots -->
 
 
 

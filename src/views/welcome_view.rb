@@ -42,6 +42,7 @@ class Welcome
     end
 
     def digest_input(input)
+
         case input 
         when 1
             addMovie = AddMovie.new
@@ -53,8 +54,8 @@ class Welcome
             dataManager = DataManager.new
             dataManager.run_delete
         when 4
-            sleep(1.5)
-            puts "Update"
+            dataManager = DataManager.new
+            dataManager.run_update
         when 5 
             sleep(1.5)
             puts "Imdb"
