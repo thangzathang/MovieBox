@@ -1,0 +1,31 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    artii (2.1.2)
+    json (2.5.1)
+    pastel (0.8.0)
+      tty-color (~> 0.5)
+    rainbow (3.0.0)
+    tty-color (0.6.0)
+    tty-cursor (0.7.1)
+    tty-prompt (0.23.1)
+      pastel (~> 0.8)
+      tty-reader (~> 0.8)
+    tty-reader (0.9.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.8)
+      wisper (~> 2.0)
+    tty-screen (0.8.1)
+    wisper (2.0.1)
+
+PLATFORMS
+  x86_64-darwin-18
+
+DEPENDENCIES
+  artii (~> 2.1, >= 2.1.2)
+  json (~> 2.5, >= 2.5.1)
+  rainbow (~> 3.0)
+  tty-prompt (~> 0.23.0)
+
+BUNDLED WITH
+   2.2.17
