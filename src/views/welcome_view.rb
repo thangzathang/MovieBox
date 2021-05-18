@@ -1,6 +1,13 @@
+# External Library
 require "Rainbow"
 require "tty-prompt"
 require "artii"
+
+# Local files
+require_relative 'welcome_view.rb'
+require_relative 'add_movie_view.rb'
+require_relative 'display_movies_view.rb'
+require_relative 'delete_update_view.rb'
 
 class Welcome
     def initialize
@@ -10,6 +17,8 @@ class Welcome
 
     def show_welcome_menu
         loop do 
+            system("clear")
+            puts "\n"
             puts @arrti.asciify("My Media Box!")
 
             input = @prompt.select('', cycle: true) do |menu|
@@ -35,14 +44,14 @@ class Welcome
     def digest_input(input)
         case input 
         when 1
-            sleep(1.5)
-            puts "Add movie"
+            addMovie = AddMovie.new
+            addMovie.run
         when 2
-            sleep(1.5)
-            puts "Display"
+            displayMovie = DisplayMovie.new
+            displayMovie.run
         when 3 
-            sleep(1.5)
-            puts "Delete"
+            dataManager = DataManager.new
+            dataManager.run_delete
         when 4
             sleep(1.5)
             puts "Update"
