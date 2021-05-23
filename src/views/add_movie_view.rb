@@ -106,7 +106,7 @@ class AddMovie
             end
         print box
 
-        @msgBox.print("Press any key to continue...")
+        @msgBox.print("Press Enter key to continue...")
         any = gets
 
         box2 = TTY::Box.success("Successfully Saved").center(20)
@@ -128,8 +128,6 @@ class AddMovie
         puts "Movie is saved to database!"
         @crud.save(movie)
         sleep(1.5)
-
-       
     end
 
     

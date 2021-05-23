@@ -43,11 +43,45 @@ class Crud
     end    
 
     def get_movies
+        load_data()
         return @movies
     end
 
     def search_movie(movie)
         found = @movies.find { |movieObj| movieObj[:title] == movie }
+        if found
+            return found
+        else 
+            return "Not Found" 
+        end
+    end
+
+    def search_movie_by_rating(score)
+        # the array of movies need a score higher than this
+        movies = @movies.select { |movieObj| 
+            movieObj[:reviewScore] >= score
+        }
+        return movies
+    end
+
+    def search_movie_by_args_array(input, args)
+        copyArgs = args.to_sym
+        found = @movies.select { |movieObj| 
+            movieObj[copyArgs].include?(input)
+        }
+        if found
+            puts found
+            return found
+        else 
+            return "Not Found" 
+        end
+    end
+
+    def search_movie_by_args(input, args)
+        copyArgs = args.to_sym
+        found = @movies.select { |movieObj| 
+            movieObj[copyArgs] == input
+        }
         if found
             return found
         else 

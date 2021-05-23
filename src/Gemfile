@@ -16,3 +16,7 @@ gem 'rainbow', '~> 3.0'
 
 gem "tty-box"
 
+gem "tty-table"
+
+gem "terminal-table"
+
