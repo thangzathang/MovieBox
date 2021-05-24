@@ -55,16 +55,17 @@ class DataManager
         # The acttula deleting is done here.
         # Ask to confirm if they want to delete
 
-        print TTY::Box.success("Are you sure you want to delete #{theMovie[:title]}").center(20)
+         confirm = @msgBox.get("Are you sure you want to delete #{theMovie[:title]}( yes/ no )")
 
-        confirm = prompt.yes?("")
-        if !confirm 
-            print TTY::Box.error("Did not delete #{theMovie[:title]}").center(20)
-        else 
-            @crud.delete(@movieTitle, @movieYear)
+        if confirm.chomp.downcase == "yes" 
             print TTY::Box.success("Successfully deleted #{theMovie[:title]}").center(20)
+            @crud.delete(movieTitle, movieYear)
+        else 
+            print TTY::Box.error("Did not delete #{theMovie[:title]}").center(20)
         end
 
+        puts "Press Enter to continue"
+        enter = gets
         return
     end
 

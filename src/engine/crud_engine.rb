@@ -102,6 +102,7 @@ class Crud
         @movies.delete_if { |movieObj| 
             movieObj[:title] == movieTitle && movieObj[:year] == year }
         # Save the data
+        
         save_data()
     end
 
