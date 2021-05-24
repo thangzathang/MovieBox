@@ -56,6 +56,16 @@ class Crud
         end
     end
 
+    def search_movie_with_year(movie, year)
+        found = @movies.find { |movieObj| 
+            movieObj[:title] == movie && movieObj[:year] == year } 
+        if found
+            return found
+        else 
+            return "Not Found" 
+        end
+    end
+
     def search_movie_by_rating(score)
         # the array of movies need a score higher than this
         movies = @movies.select { |movieObj| 
@@ -70,7 +80,6 @@ class Crud
             movieObj[copyArgs].include?(input)
         }
         if found
-            puts found
             return found
         else 
             return "Not Found" 
@@ -85,22 +94,22 @@ class Crud
         if found
             return found
         else 
-            return "Not Found" 
+            return "Does Not Exist" 
         end
     end
 
-    def delete(movie)
-        @movies.delete_if { |movieObj| movieObj[:title] == movie }
-
+    def delete(movieTitle, year)
+        @movies.delete_if { |movieObj| 
+            movieObj[:title] == movieTitle && movieObj[:year] == year }
         # Save the data
         save_data()
     end
 
-    def update(title, tag, newData)
-        newMovieObj = search_movie(title)
+    def update(title, year, tag, newData)
+        newMovieObj = search_movie_with_year(title, year)
     
         # Delete the old movie with old data
-        delete(title)
+        delete(title, year)
 
         # Overwrite the old data
         newMovieObj[tag.to_sym] = newData

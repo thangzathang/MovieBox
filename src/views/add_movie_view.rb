@@ -40,6 +40,7 @@ class AddMovie
         # 1. Get Movie Title
         @movieTitle = @msgBox.allCaps(@msgBox.getString("What is the name of the movie?"))
         return if @movieTitle == "exit" 
+
         movie[:title] = @movieTitle
 
         # 2. Get Movie Year
@@ -60,6 +61,15 @@ class AddMovie
             return
         end
         @msgBox.printSuccess("No duplicates exists", 1.5)
+
+        # 2.5. Get the Ranking(s)
+        @msgBox.print("What is the ranking? S tier, A tier, B tier..etc ?")
+        @movieRanking = @msgBox.getString("Type the ranking")
+        if @movieRanking.include?("Exit")
+            @msgBox.printWarning("Exiting the program...", 2)
+            return
+        end
+        movie[:ranking] = @movieRanking
 
         # 3. Get the Director(s)
         @msgBox.print("Name of Director(s) [Seprated by commas ( , )]")

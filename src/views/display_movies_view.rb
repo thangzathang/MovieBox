@@ -32,9 +32,9 @@ class DisplayMovie
                 menu.choice 'Show all',  1
                 menu.choice 'Filter by Title', 2
                 menu.choice 'Filter by Review Score', 3
-                menu.choice 'Filter by Genres', 4
-                menu.choice 'Filter by Actors', 5
-                menu.choice 'Filter by Directors', 6
+                menu.choice 'Filter by Genre', 4
+                menu.choice 'Filter by Actor', 5
+                menu.choice 'Filter by Director', 6
                 menu.choice 'Exit', 7
             end
 
@@ -50,18 +50,19 @@ class DisplayMovie
             when 3
                 filterByReview()
             when 4
+                # Needs to print all
                 filterByGenres()
             when 5
                 filterByActors()
             when 6
+                # This is fixed!
                 filterByDirectors()
             end
         end
     end
 
     def filterByDirectors()
-        @msgBox.print("List Directors(s) to filter by [Seprated by commas ( , )]")
-        directorsArray = @msgBox.getStringArray("Input directors(s) name(s)")
+        directorsArray = @msgBox.getStringArray("Input director's name")
         if directorsArray.include?("Exit")
             @msgBox.printWarning("Exiting the program...", 2)
             return
@@ -69,26 +70,23 @@ class DisplayMovie
 
         movieArr = []
 
+        # Only allows one director to all movies.
         directorsArray.each do |directors|
-            movieArr << @crud.search_movie_by_args_array(directors, "directors")
-            puts "The movie INSIDE array is: "
-            puts movieArr
-            # search = @crud.search_movie_by_args_array(directors, "directors")
-            # puts search
+            movieArr = @crud.search_movie_by_args_array(directors, "directors")
+        end
+        
+        # Try to see wht this code does. Allows for multiple People
+        # directorsArray.each do |directors|
+        #     movieArr << @crud.search_movie_by_args_array(directors, "directors")
+        # end
+
+        if movieArr.size == 0
+            @msgBox.printWarning("Movie does not exist!", 1.8)
+            return
         end
 
-        puts "The movie Outside array is: "
-        puts movieArr
-
         movieArr.each do |movie|
-            puts "Movie inside the loop!"
-            puts movie
-            printMovie = Hash[*movie.flatten]
-
-            puts "Movie inside the loop! after flattening"
-            puts printMovie
-            displayMovie(printMovie)
-            # displayMovie(movie)
+            displayMovie(movie)
         end
 
         puts "\n\nPress enter to continue..."
@@ -97,8 +95,7 @@ class DisplayMovie
     end
 
     def filterByActors()
-        @msgBox.print("List Actor(s)/Actress(es) to filter by [Seprated by commas ( , )]")
-        actorsArray = @msgBox.getStringArray("Input actor(s)/actress(es) name")
+        actorsArray = @msgBox.getStringArray("Input actor's/actress's name")
         if actorsArray.include?("Exit")
             @msgBox.printWarning("Exiting the program...", 2)
             return
@@ -107,12 +104,18 @@ class DisplayMovie
         movieArr = []
 
         actorsArray.each do |actors|
-            movieArr << @crud.search_movie_by_args_array(actors, "actors")
+            movieArr = @crud.search_movie_by_args_array(actors, "actors")
         end
 
-        movieArr.each do |movie|
-            printMovie = Hash[*movie.flatten]
-            displayMovie(printMovie)
+        if movieArr.size == 0
+            @msgBox.printWarning("Movie does not exist!", 1.8)
+            return
+        end
+
+        movieArr.each do |actor|
+            # printMovie = Hash[*movie.flatten]
+            # displayMovie(printMovie)
+            displayMovie(actor)
         end
 
         puts "\n\nPress enter to continue..."
@@ -121,8 +124,7 @@ class DisplayMovie
     end
 
     def filterByGenres()
-        @msgBox.print("List Genres to filter by [Seprated by commas ( , )]")
-        genresArray = @msgBox.getStringArray("Input movie genres")
+        genresArray = @msgBox.getStringArray("Input movie genre you want to see")
         if genresArray.include?("Exit")
             @msgBox.printWarning("Exiting the program...", 2)
             return
@@ -131,13 +133,27 @@ class DisplayMovie
         movieArr = []
 
         genresArray.each do |genre|
-            movieArr << @crud.search_movie_by_args_array(genre, "genres")
+            movieArr = @crud.search_movie_by_args_array(genre, "genres")
+
+            # Allows for multiple input - but problms
+            # movieArr << @crud.search_movie_by_args_array(genre, "genres")
         end
+
+        if movieArr.size == 0
+            @msgBox.printWarning("Movie does not exist!", 1.8)
+            return
+        end
+
+        # To avoid duplicate data
+        # movieArr = movieArr.uniq
 
         movieArr.each do |movie|
             # displayMovie expects a hash.
             # take out the flatten and code WILL not work.
-            # printMovie = Hash[movie.flatten]
+
+
+            # printMovie = Hash[*movie.flatten]
+            # displayMovie(printMovie)
             displayMovie(movie)
         end
 
@@ -153,6 +169,11 @@ class DisplayMovie
         return if movieTitle == "exit" 
 
         movieArr = @crud.search_movie_by_args(movieTitle, "title")
+
+        if movieArr.size == 0
+            @msgBox.printWarning("Movie does not exist!", 1.8)
+            return
+        end
 
         movieArr.each do |movie|
             displayMovie(movie)
@@ -170,6 +191,11 @@ class DisplayMovie
 
         movieArr = @crud.search_movie_by_rating(movieScore)
 
+        if movieArr.size == 0
+            @msgBox.printWarning("Movie does not exist!", 1.8)
+            return
+        end
+
         movieArr.each do |movie|
             displayMovie(movie)
         end
@@ -182,6 +208,11 @@ class DisplayMovie
     def showAll()
         @movies = @crud.get_movies()
 
+        if @movies.size == 0
+            @msgBox.printWarning("There are no movies in the array!", 1.8)
+            return
+        end
+
         @movies.each do |movie|
             displayMovie(movie)
         end
@@ -192,10 +223,10 @@ class DisplayMovie
     end
 
     def displayMovie(movie)
-        table = Terminal::Table.new :title => movie[:title] do |t|
+        table = Terminal::Table.new :style => {:width => 80}, :title => Rainbow(movie[:title]).darkred do |t|
             t << [ "Year", movie[:year]]
             t.add_separator 
-            t << [ "Rank", movie[:rank] ? movie[:rank] : "No ranking"]
+            t << [ "Rank", movie[:ranking] ? movie[:ranking] : "No ranking"]
             t.add_separator 
             t << [ "Directors", movie[:directors] ? movie[:directors].join(', '): "N\\A" ]
             t.add_separator 
@@ -207,7 +238,18 @@ class DisplayMovie
             t.add_separator 
             t << [ "Comment", movie[:reviewComment] ? movie[:reviewComment] : "N\\A" ]
           end
-          puts table
+          puts table        
+    end
+
+    def displayMovieInfo(movie)
+        table = Terminal::Table.new  :style => {:width => 80}, :title => movie[:title] do |t|
+            t << [ "Year", movie[:year]]
+            t.add_separator 
+            t << [ "Directors", movie[:directors] ? movie[:directors].join(', '): "N\\A" ]
+            t.add_separator 
+            t << [ "Actors", movie[:actors] ? movie[:actors].join(', ') : "N\\A" ]
+          end
+          puts table        
     end
     
 
