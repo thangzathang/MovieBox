@@ -184,6 +184,7 @@ class DisplayMovie
         return
     end
 
+    
     def filterByReview()
         @msgBox.print("Filter By Review Score:")
         movieScore = @msgBox.getInteger("What is the minium rating of the movie?")
@@ -223,7 +224,7 @@ class DisplayMovie
     end
 
     def displayMovie(movie)
-        table = Terminal::Table.new :style => {:width => 80}, :title => Rainbow(movie[:title]).darkred do |t|
+        table = Terminal::Table.new :title => Rainbow(movie[:title]).darkred do |t|
             t << [ "Year", movie[:year]]
             t.add_separator 
             t << [ "Rank", movie[:ranking] ? movie[:ranking] : "No ranking"]
@@ -242,7 +243,7 @@ class DisplayMovie
     end
 
     def displayMovieInfo(movie)
-        table = Terminal::Table.new  :style => {:width => 80}, :title => movie[:title] do |t|
+        table = Terminal::Table.new :title => movie[:title] do |t|
             t << [ "Year", movie[:year]]
             t.add_separator 
             t << [ "Directors", movie[:directors] ? movie[:directors].join(', '): "N\\A" ]

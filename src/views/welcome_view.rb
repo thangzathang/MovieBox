@@ -33,11 +33,11 @@ class Welcome
                 menu.choice 'DISPLAY my movies', 2
                 menu.choice 'DELETE movie', 3
                 menu.choice 'UPDATE movie', 4
-                menu.choice 'Imdb Movie Search', 5
-                menu.choice 'Exit', 6
+                # menu.choice 'Imdb Movie Search', 5
+                menu.choice 'Exit', 5
             end
 
-            if input == 6
+            if input == 5
                 puts "\n"
                 puts "Thanks for playing movie box!".center(50, "+")
                 puts "\n"
@@ -63,9 +63,9 @@ class Welcome
         when 4
             dataManager = DataManager.new
             dataManager.run_update
-        when 5 
-            sleep(1.5)
-            puts "Imdb"
+        # when 5 
+        #     sleep(1.5)
+        #     puts "Imdb"
         end
     end
 

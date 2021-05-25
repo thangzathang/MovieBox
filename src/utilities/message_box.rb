@@ -28,6 +28,10 @@ class MessageBox
         sleep(timer)
     end
 
+    def allCaps(arr)
+        return arr.split.map(&:capitalize).join(' ')
+    end
+
     def printSuccess(message, timer=0)
         puts "\n"
         puts Rainbow("#{message}").darkgreen
@@ -38,10 +42,6 @@ class MessageBox
         print(question)
         obj = gets
         return obj
-    end
-
-    def allCaps(arr)
-        return arr.split.map(&:capitalize).join(' ')
     end
 
     def getString(question)

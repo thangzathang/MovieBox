@@ -46,7 +46,8 @@ class DataManager
         movieYear = @msgBox.getInteger("Enter the release year:")
         return if movieYear == "exit"
 
-        # Get the full movie with the title and year specified.
+    #DEMO
+        # Get the movie with the title and year specified.
         theMovie = @crud.search_movie_with_year(movieTitle, movieYear)
  
         @msgBox.printSuccess("Movie successfully retrieved! Here is the data:", 1.2)
@@ -59,7 +60,9 @@ class DataManager
 
         if confirm.chomp.downcase == "yes" 
             print TTY::Box.success("Successfully deleted #{theMovie[:title]}").center(20)
+
             @crud.delete(movieTitle, movieYear)
+            
         else 
             print TTY::Box.error("Did not delete #{theMovie[:title]}").center(20)
         end
@@ -226,7 +229,7 @@ class DataManager
             any = gets
             return
         when 8
-            newComment = @msgBox.allCaps(@msgBox.getString("Enter the new 'Comment'.."))
+            newComment = @msgBox.getString("Enter the new 'Comment'..")
             return if newComment == "exit" 
 
             # Old data, with year, tag, new data

@@ -29,10 +29,6 @@ class Crud
         File.write(@file_path, [])
         retry
     end
-    
-    def save_data()
-        File.write(@file_path, @movies.to_json)
-    end
 
     def clear_data()
         File.open(@file_path, 'w') {|file| file.truncate(0) }
@@ -42,13 +38,19 @@ class Crud
         @movies << movie
     end    
 
+    def save_data()
+        File.write(@file_path, @movies.to_json)
+    end
+
     def get_movies
         load_data()
         return @movies
     end
 
-    def search_movie(movie)
-        found = @movies.find { |movieObj| movieObj[:title] == movie }
+    def search_movie(movieTitle)
+        found = @movies.find { 
+            |movieObj| movieObj[:title] == movieTitle 
+        }
         if found
             return found
         else 
@@ -56,9 +58,12 @@ class Crud
         end
     end
 
+# DEMO
+# @movies is array of movies
     def search_movie_with_year(movie, year)
         found = @movies.find { |movieObj| 
-            movieObj[:title] == movie && movieObj[:year] == year } 
+            movieObj[:title] == movie && 
+            movieObj[:year] == year } 
         if found
             return found
         else 
@@ -66,8 +71,8 @@ class Crud
         end
     end
 
+
     def search_movie_by_rating(score)
-        # the array of movies need a score higher than this
         movies = @movies.select { |movieObj| 
             movieObj[:reviewScore] >= score
         }
@@ -100,22 +105,25 @@ class Crud
 
     def delete(movieTitle, year)
         @movies.delete_if { |movieObj| 
-            movieObj[:title] == movieTitle && movieObj[:year] == year }
+            movieObj[:title] == movieTitle 
+            && movieObj[:year] == year }
         # Save the data
         
         save_data()
     end
 
     def update(title, year, tag, newData)
+        # 1. Find the old movie with the title and year
+        # 1.5 Make a copy of it
         newMovieObj = search_movie_with_year(title, year)
     
-        # Delete the old movie with old data
+        # 2. Delete the old movie with old data
         delete(title, year)
 
-        # Overwrite the old data
+        # 3. Overwrite the OLD COPIED DATA
         newMovieObj[tag.to_sym] = newData
 
-        # Save -  it will hard save in this method
+        # 4. Save - this method hardcore saves to JSON!
         save(newMovieObj)
     end
 

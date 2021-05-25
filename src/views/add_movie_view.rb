@@ -64,7 +64,9 @@ class AddMovie
 
         # 2.5. Get the Ranking(s)
         @msgBox.print("What is the ranking? S tier, A tier, B tier..etc ?")
+
         @movieRanking = @msgBox.getString("Type the ranking")
+        
         if @movieRanking.include?("Exit")
             @msgBox.printWarning("Exiting the program...", 2)
             return
