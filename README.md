@@ -140,69 +140,57 @@ While there were complications along the coding, the main steps I needed to take
 
 </br >
 
-
-## Testing
-
-### 1. Testing All CRUD Feature
-Precondition: There is a book called "Clean Code" in the library with its reading status set to "Reading".
-
-***Scenario 1***
-1. Open the app.
-1. From the main menu, select "Access My Library".
-1. From the reading status menu, select "Reading".
-1. Under the book list table, select "Select Book".
-1. After being prompted to enter the book title, try not to enter anything and hit enter.
-
-Expectation: The app is giving an error message "Value must be provided".
-
-***Scenario 2***
-1. Open the app.
-1. From the main menu, select "Access My Library".
-1. From the reading status menu, select "Reading".
-1. Under the book list table, select "Select Book".
-1. Enter Title: "Clean Code".
-1. Under the book metadata, select "Delete Book"
-1. After being prompted a warning message, enter "y" to confirm the deletion.
-
-Expectation: "Clean Code" should be deleted and no longer in the library.
-
-***Scenario 3***
-1. Open the app.
-1. From the main menu, select "Access My Library".
-1. From the reading status menu, select "Reading".
-1. Under the book list table, select "Select Book".
-1. Enter Title: "Clean Code".
-1. Under the book metadata, select "Change Reading Status".
-1. From the reading status menu, select "Read".
-
-Expectation: "Clean Code" should be gone in the "Reading" list and be moved to the "Read" list.
-
-### 2. Test Search Feature
-
-***Scenario 1***
-
-Precondition: There are few books with different formats(Paperbook/Kindle/Audiobook/eBook/Other) in the library.
-
-1. Open the app.
-1. From the main menu, select "Search For Books".
-1. From the search filter menu, select "Format".
-1. From the format menu, select "Kindle"
-
-Expectation: The app is showing only those books with "Kindle" format.
-
-***Scenario 2***
-
-Precondition: There is no book in the library.
-
-1. Open the app.
-1. From the main menu, select "Search For Books".
-1. From the search filter menu, try to select any option.
-1. After being prompted "There is no book in your library. Do you want to add a book? (Y/n) ", enter "y".
-
-Expectation: The app is taking the user to the library screen and offering list options.
+Incorpate karen's and the manuel testing from coder!
 
 
+## Code Requirement - Manual Testing
 
+</br >
+
+### Test Case 1
+Make sure you can add a movie object and that it is actually saved by quitting the program and starting it again.
+
+The test data we will input is:
+
+Movie title: Snatch 
+Movie year: 1999
+Movie ranking: S
+Movie director: Guy Ritchie
+Movie actors: Brad Pitt, Jason Statham, Benicio Del Toro, Alan Ford 
+Movie genres: Crime, Comedy, Heist, Thriller
+Movie score: 95
+Movie Comment: Do you know what nemesis means?
+
+1. Open Movie Box App.
+1. From the main menu, select Add Movie 
+1. Fill out the required inputs and proceed until finished.
+1. From the main menu, select Display Movie, view all. You should see the movie.
+1. Restart the program. Then goto Display Movies again.
+
+Expectation: The same movie should be there meaning the movie was really created and saved.
+
+Actual Result: The same movie is still there with the same data so we know Adding works.
+
+Status: passed
+
+</br >
+
+### Test Case 2
+We want to make sure that we can update the movie objects.
+
+The test data we will input is the movie data. It seems that Snatch was released in 2000, instead of 1999. So we will update the year of the movie snatch.
+
+1. Open Movie Box App.
+1. From the main menu, select Update Movie 
+1. It will ask for movie title, and movie year. Fill it out as Snatch, 1999 because this is the old data it has been given.
+1. Once prompted to select which field we would like to update, select year. Update the year to 2000. Then save it.
+1. Now from the main menu, goto Display Movies, show all.
+
+Expectation: We will see the movie Snatch with the new updated year value of 2000.
+
+Actual Result: We see the movie Snatch with the year of 2000. Previously it was 1999, but now it is 2000, meaning the test was successful.
+
+Status: passed
 
 ### Referenced sources 
 
