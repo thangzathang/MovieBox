@@ -44,6 +44,7 @@ class MessageBox
         return obj
     end
 
+    # Loops until not empty
     def getString(question)
         @string = ""
         @string = get(question).chomp

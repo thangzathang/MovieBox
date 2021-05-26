@@ -5,7 +5,7 @@ require "json"
 
 class Crud 
     def initialize
-        @file_path = "../data/movies.json"
+        @file_path = "./data/movies.json"
         @movies = []
         load_data()
     end 
@@ -19,14 +19,16 @@ class Crud
 
     def load_data
         # puts "Data loaded"
-        data = JSON.parse(File.read("../data/movies.json"))
+        data = JSON.parse(File.read("./data/movies.json"))
         # puts data
         @movies = data.map do |movie|
             movie.transform_keys(&:to_sym)
         end
     rescue Errno::ENOENT
-        File.open(@file_path, 'w+')
-        File.write(@file_path, [])
+        File.open(@file_path,'w')
+        File.write(@file_path,[])
+        # File.new(@file_path,'w+')
+        # File.write(@file_path,'[]')
         retry
     end
 
@@ -63,7 +65,8 @@ class Crud
     def search_movie_with_year(movie, year)
         found = @movies.find { |movieObj| 
             movieObj[:title] == movie && 
-            movieObj[:year] == year } 
+            movieObj[:year] == year 
+        } 
         if found
             return found
         else 
@@ -105,10 +108,8 @@ class Crud
 
     def delete(movieTitle, year)
         @movies.delete_if { |movieObj| 
-            movieObj[:title] == movieTitle 
-            && movieObj[:year] == year }
+            movieObj[:title] == movieTitle && movieObj[:year] == year }
         # Save the data
-        
         save_data()
     end
 
@@ -117,13 +118,13 @@ class Crud
         # 1.5 Make a copy of it
         newMovieObj = search_movie_with_year(title, year)
     
-        # 2. Delete the old movie with old data
+        #2. Delete the old movie with old data
         delete(title, year)
 
-        # 3. Overwrite the OLD COPIED DATA
+        # Overwrite the OLD COPIED DATA
         newMovieObj[tag.to_sym] = newData
 
-        # 4. Save - this method hardcore saves to JSON!
+        # Save -  it will hardcore save 
         save(newMovieObj)
     end
 
