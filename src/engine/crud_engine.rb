@@ -18,7 +18,7 @@ class Crud
     end
 
     def load_data
-        # puts "Data loaded"
+        
         data = JSON.parse(File.read("./data/movies.json"))
         # puts data
         @movies = data.map do |movie|

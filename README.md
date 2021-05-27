@@ -47,15 +47,11 @@ Type the command`./mybooks.sh --help` to display help message.
 
 The purpose of my terminal app is to allow users the ability to store / save the movies they have seen. It will allow them to store it in a data format data for persistent data. They can add and delete movies as they please. They will also be given comprehensive data sorting functionality so that they may sort through the movies they have watched and use it as a tool to re-watch certain they loved. 
 
-</br >
-
 ### Problems it will solve
 
 1. It is an app they can conveniently use to store their movies on the go on the terminal line which programmers use a lot.
 1. Offers a very basic but important details of movies that can sometimes be a hassle to remember. Details such as release year, all the directors, all the actors, the score they gave or the interesting thing they loved which they can put in the comments. Essentially is a personalized encyclopedia.  
 1. People like to re-watch certain movies because of various reasons such as nostalgia or pure boredom - a behaviour observed during the 2020 - 2021 Covid lock-downs. This app allows for people to filter movies through actors, directors, genres and movie scores they gave in the past, such are the factors that are most considered when deciding what to watch. This app will help people decide what to re watch when lonely and bored - it can potentially pass off as a 'self-care' terminal app.
-
-</br >
 
 ### Target Audience
 
@@ -88,10 +84,9 @@ The display ( Read / Retrieve ) offers addition options to the reader by allowin
 ![Update Movie](./docs/movieBox_sc_5.png))
 Finally, the update functionality allows the user to change the data they have inputted earlier so that if they have changed their mind or simply made a mistake, they can rectify it easily as they have added.
 
-</br >
 
 ### ***Feature 2: JSON data persistency***
-</br >
+
 The JSON gem is a powerful tool for data persistency. When the program exits or user has decided to be done with it, the data is saved externally to an outside JSON file. This means when the user comes back on the program, all their data is saved and they can view their entries from last usage. 
 
 JSON does require a certain level of delicacy as to interact with JSON, it requires file reading which almost certainly means try and catch error handling. Read from JSON file is like any other file format with the need convert to json when saving data, and the need to parse JSON when reading from it. I believe I had handle it appropriately so the user does not need to worry about such crash or bugs.
@@ -126,7 +121,7 @@ We were told to ***Trello*** project management platform.
 
 The link to my Trello Board for this project is: https://trello.com/b/fapOKfqO/movie-termina-app
 
-All 4 Main CRUD features and their checklist can be seen in the screenshot
+All the 4 main CRUD features and their checklist can be seen in the screenshot
 
 While there were complications along the coding, the main steps I needed to take were very obvious because of this trello board.
 
@@ -139,8 +134,6 @@ While there were complications along the coding, the main steps I needed to take
 ![Trello Board Update Function](./docs/trello_board_sc_4.png)
 
 </br >
-
-Incorpate karen's and the manuel testing from coder!
 
 
 ## Code Requirement - Manual Testing
@@ -193,15 +186,16 @@ Actual Result: We see the movie Snatch with the year of 2000. Previously it was 
 Status: passed
 
 ### Referenced sources 
-
-[tty-prompt 0.23.0](https://rubygems.org/gems/tty-prompt)
+[json 2.5.1](https://rubygems.org/gems/json/versions/2.5.1)
 
 [artii 2.1.2](https://rubygems.org/gems/artii/versions/2.1.2)
 
-[json 2.5.1](https://rubygems.org/gems/json/versions/2.5.1)
+[rainbow 3.0.0](https://rubygems.org/gems/rainbow)
+
+[tty-prompt 0.23.0](https://rubygems.org/gems/tty-prompt)
 
 [terminal-table 3.0.0](https://rubygems.org/gems/terminal-table)
 
-[rainbow 3.0.0](https://rubygems.org/gems/rainbow)
+
 
 

@@ -44,7 +44,6 @@ class MessageBox
         return obj
     end
 
-    # Loops until not empty
     def getString(question)
         @string = ""
         @string = get(question).chomp
@@ -85,10 +84,6 @@ class MessageBox
         end
         
         return @array
-        # use get string 
-        # Check if com=ntains commas
-        # IF contains commas we split it up
-        # add the names in an array
     end
 
     def getInteger(question)
